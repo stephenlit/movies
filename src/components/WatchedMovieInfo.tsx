@@ -3,6 +3,7 @@ import List from "./List";
 function WatchedMovieInfo() {
     return (
         <>
+
             <div className='stats'>
                 <p>Movies you watched</p>
                 <p>
@@ -13,7 +14,6 @@ function WatchedMovieInfo() {
                 </p>
             </div>
             <List>
-                {}
                 <li>
                     <img
                         src='https://m.media-amazon.com/images/M/MV5BOGUwMDk0Y2MtNjBlNi00NmRiLTk2MWYtMGMyMDlhYmI4ZDBjXkEyXkFqcGc@._V1_SX300.jpg'
