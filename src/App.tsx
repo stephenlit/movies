@@ -1,18 +1,31 @@
+//===================== Import hooks ==========================
+import { useState } from "react";
+
+//===================== Import Components =====================
 import Box from "./components/Box";
 import WatchedMovieInfo from "./components/WatchedMovieInfo";
-import Navebar from "./components/Navbar";
+import Navbar from "./components/Navbar";
 import SearchResults from "./components/SearchResults";
+import Movie from "./components/Movie";
+
+//==================== Import Types ==========================
+import { FullMovieData } from "./types/types";
 
 function App() {
+    const [movie, setMovie] = useState<FullMovieData | null>(null);
+    const [searchTerm, setSearchTerm] = useState<string>("");
+    const [results, setResults] = useState<FullMovieData[]>([]);
     return (
         <div className='container'>
-            <Navebar />
+            <Navbar />
             <main>
                 <Box>
-                    <SearchResults />
+                    <SearchResults setMovie={setMovie} />
                 </Box>
                 <Box>
-                    <WatchedMovieInfo />
+                    {
+                        movie ? (<Movie />) : (<WatchedMovieInfo />)
+                    }
                 </Box>
             </main>
         </div>
