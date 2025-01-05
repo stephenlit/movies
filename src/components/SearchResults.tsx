@@ -7,9 +7,10 @@ import { FullMovieData } from '../types/types';
 
 interface SearchResultsProps {
     setMovie: React.Dispatch<React.SetStateAction<FullMovieData | null>>
+    searchData?: FullMovieData[]
 }
 
-function SearchResults({ setMovie }: SearchResultsProps) {
+function SearchResults({ setMovie, searchData }: SearchResultsProps) {
 
     const handleMovieClick = (movie: FullMovieData) => {
         setMovie(movie);
@@ -17,16 +18,20 @@ function SearchResults({ setMovie }: SearchResultsProps) {
 
     return (
         <List>
-            <li onClick={handleMovieClick}>
-                <img
-                    src='https://m.media-amazon.com/images/M/MV5BOGUwMDk0Y2MtNjBlNi00NmRiLTk2MWYtMGMyMDlhYmI4ZDBjXkEyXkFqcGc@._V1_SX300.jpg'
-                    alt=''
-                />
-                <div>
-                    <h3>Game of Thrones</h3>
-                    <p>📅 2011-2019</p>
-                </div>
-            </li>
+            {
+                searchData?.map((movie) => (
+                    <li key={movie.imdbID} onClick={() => handleMovieClick(movie)}>
+                        <img
+                            src={movie.Poster}
+                            alt=''
+                        />
+                        <div>
+                            <h3>{movie.Title}</h3>
+                            <p>📅 {movie.Year}</p>
+                        </div></li>
+                ))
+            }
+
         </List>
     );
 }

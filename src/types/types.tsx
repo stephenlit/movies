@@ -6,7 +6,9 @@ export type MovieData = {
 };
 
 export type FullMovieData = MovieData & {
-    runtime: number;
+    Runtime: number;
     imdbRating: number;
     userRating: number;
+    Genre: string;
+    Plot: string;
 }
