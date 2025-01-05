@@ -37,10 +37,14 @@ function App() {
 
 
     return (
+
         <div className='container'>
             <Navbar setQuery={setQuery} query={query} />
             <main>
                 <Box>
+                    {
+                        loading && (<p>Loading...</p>)
+                    }
                     <SearchResults setMovie={setMovie} searchData={results} />
                 </Box>
                 <Box>
