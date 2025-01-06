@@ -2,17 +2,32 @@
 import useFetch from "../components/hooks/useFetch";
 
 //===================== Import Types =====================
-import { FullMovieData } from '../types/types';
+import { FullMovieData } from "../types/types";
 
 interface MovieProps {
     movie: FullMovieData;
 }
 
 function Movies({ movie }: MovieProps) {
+    const formatTextWithParagraphs = (text: string) => {
+        // Split the text into sentences
+        const sentences = text.split(". ");
 
+        // Group sentences into chunks of 5
+        const chunks = [];
+        for (let i = 0; i < sentences.length; i += 5) {
+            const chunk = sentences.slice(i, i + 5).join(". ") + ".";
+            chunks.push(chunk.trim());
+        }
+
+        // Return the chunks wrapped in <p> tags
+        return chunks.map((chunk, index) => <p key={index}>{chunk}</p>);
+    };
 
     const apiKey = "de4dd7ff";
-    const { data, loading, error } = useFetch<FullMovieData>(`https://www.omdbapi.com/?apikey=${apiKey}&i=${movie.imdbID}`);
+    const { data, loading, error } = useFetch<FullMovieData>(
+        `https://www.omdbapi.com/?apikey=${apiKey}&i=${movie.imdbID}&plot=full`
+    );
 
     // Handle loading and error states
     if (loading) {
@@ -34,24 +49,22 @@ function Movies({ movie }: MovieProps) {
         <>
             <div className='movie-info'>
                 <div className='movie-info-stats'>
-
                     <img
                         src={data.Poster}
                         alt='Poster art for data'
                     />
                     <div>
-
                         <p>{data.Title}</p>
-                        <p>{data.Year} - {data.Runtime} min</p>
+                        <p>
+                            {data.Year} - {data.Runtime} min
+                        </p>
                         <p>{data.Genre}</p>
                         <p>⭐ {data.imdbRating}</p>
                     </div>
                 </div>
-                <p className='plot'> {data.Plot}</p>
+                {formatTextWithParagraphs(data.Plot)}
             </div>
-            <div>
-
-            </div>
+            <div></div>
         </>
     );
 }
