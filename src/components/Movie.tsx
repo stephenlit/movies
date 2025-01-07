@@ -26,7 +26,7 @@ function Movies({ movie }: MovieProps) {
 
     const apiKey = "de4dd7ff";
     const { data, loading, error } = useFetch<FullMovieData>(
-        `https://www.omdbapi.com/?apikey=${apiKey}&i=${movie.imdbID}&plot=full`
+        `https://www.omdbapi.com/?apikey=${apiKey}&i=${movie.imdbID}`
     );
 
     // Handle loading and error states
