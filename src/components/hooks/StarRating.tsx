@@ -17,6 +17,8 @@ interface StarRatingProps {
     test?: string;
     className?: string;
     messages?: string[];
+    defaultRating?: number;
+    onMovieRate?: (rating: number) => void;
 }
 
 function StarRating({
@@ -25,12 +27,15 @@ function StarRating({
     size = 48,
     className = "",
     messages = [],
+    defaultRating = 0,
+    onMovieRate,
 }: StarRatingProps) {
-    const [rating, setRating] = useState(0);
+    const [rating, setRating] = useState(defaultRating);
     const [tempRating, setTempRating] = useState(0);
 
     function handleRating(rating: number) {
         setRating(rating);
+        if (onMovieRate) onMovieRate(rating);
     }
 
     const textStyle = {
